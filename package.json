@@ -10,13 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/liangpeili/blockchain_adventure.git"
   },
-  "author": "",
+  "author": "liangpeili",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/liangpeili/blockchain_adventure/issues"
   },
   "homepage": "https://github.com/liangpeili/blockchain_adventure#readme",
   "dependencies": {
+    "bitcoinjs-lib": "^3.2.0",
     "crypto-js": "^3.1.9-1"
   }
 }
