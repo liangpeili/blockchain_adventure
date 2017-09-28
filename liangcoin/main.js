@@ -1,16 +1,23 @@
 const SHA256 = require('crypto-js/sha256');
 
 class Block {
-  constructor(index, timestamp, data, previousHash = '') {
+  constructor(index, timestamp, previousHash = '') {
     this.index = index;
     this.timestamp = timestamp;
-    this.data = data;
+    this.transactions = [];
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
   }
 
   calculateHash() {
     return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();    
+  }
+  addNewTransaction(sender, recipient, amount) {
+    this.transactions.push({
+      sender: sender,
+      recipient: recipient,
+      amount: amount
+    })
   }
 }
 
@@ -50,14 +57,12 @@ class Blockchain {
   }
 }
 
-const liangCoin = new Blockchain();
-liangCoin.addBlock(new Block(1, "10/07/2017", { amount: 4 }));
-liangCoin.addBlock(new Block(2, "12/07/2017", { amount: 10 }));
+const testCoin = new Blockchain();
+const block1 = new Block(1, '10/07/2017');
+const block2 = new Block(2, '12/07/2017');
+block1.addNewTransaction('liang', 'zhang', 100)
 
-console.log('Is blockchain valid? ' + liangCoin.isChainValid());
+testCoin.addBlock(new Block(1, "10/07/2017"));
+testCoin.addBlock(new Block(2, "12/07/2017"));
 
-liangCoin.chain[1].data = { amount: 100 }
-liangCoin.chain[1].hash = liangCoin.chain[1].calculateHash();
-
-console.log('Is blockchain valid? ' + liangCoin.isChainValid());
-// console.log(JSON.stringify(liangCoin, null, 4));
+console.log('Is blockchain valid? ' + testCoin.isChainValid());
