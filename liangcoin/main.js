@@ -10,7 +10,7 @@ class Block {
   }
 
   calculateHash() {
-    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();    
+    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.transactions)).toString();    
   }
   addNewTransaction(sender, recipient, amount) {
     this.transactions.push({
@@ -18,6 +18,9 @@ class Block {
       recipient: recipient,
       amount: amount
     })
+  }
+  getTransactions() {
+    return this.transactions;
   }
 }
 
@@ -60,9 +63,11 @@ class Blockchain {
 const testCoin = new Blockchain();
 const block1 = new Block(1, '10/07/2017');
 const block2 = new Block(2, '12/07/2017');
-block1.addNewTransaction('liang', 'zhang', 100)
-
+block1.addNewTransaction('Alice', 'Bob', 100);
+block1.addNewTransaction('Leo', 'Carol', 300);
+block2.addNewTransaction('Jack', 'David', 1000)
 testCoin.addBlock(new Block(1, "10/07/2017"));
 testCoin.addBlock(new Block(2, "12/07/2017"));
 
+console.log(block1.getTransactions());
 console.log('Is blockchain valid? ' + testCoin.isChainValid());
