@@ -87,7 +87,7 @@ var address = bitcoin.address.fromOutputScript(scriptPubKey, testnet)
 let alice = bitcoin.ECPair.fromWIF('cUeEXDzdHt5NmKjTJChgL1okGLvzeo7NzmoPyxRThzPVRgoQT9T8', testnet);
 let bob = bitcoin.ECPair.fromWIF('cTMHppSZNfogdNhUz11RhfYcYnxsfK7MYUfuRGo9mdgvWY9XBacB', testnet);
 
-let tx = new bitcoin.TransactionBuilder(testnet);
+var tx = new bitcoin.TransactionBuilder(testnet);
 
 tx.addInput('061eefa78419504bd97bb2672d61fe10fa99ade5a5a72b38b7183ed9c18ef5f6', 0);
 tx.addOutput('n1Mgodk5eJ6QaDMh8BUPBUygAExYNc4VMQ', 40000);
