@@ -15,5 +15,5 @@ if (web3.personal.unlockAccount(address, 'password')) {
   console.log(`unlock failed, ${address}`);
 }
 
-h = myContractInstance.execute(web3.eth.accounts[2], web3.toWei(12, "ether"), web3.toHex('send some money'), {from: address});
+h = myContractInstance.execute(web3.eth.accounts[3], web3.toWei(12, "ether"), web3.toHex('send some money'), {from: address, gas: 1000000});
 console.log(h)
