@@ -1,6 +1,6 @@
-var web3_extended = require('web3_ipc');
+const Web3 = require('web3_ipc');
 
-var options = {
+const options = {
   host: '/home/liangpeili/.ethereum/testnet/geth.ipc',
   ipc:true,
   personal: true, 
@@ -8,11 +8,14 @@ var options = {
   debug: false
 };
 
-var web3 = web3_extended.create(options);
+const web3 = Web3.create(options);
 
-web3.personal.newAccount("password",function(error,result){
-    if (error) console.log(error)
-    if(!error){
-        console.log(result);
+web3.personal.newAccount("password", (error, result) => {
+  return new Promise((resolve, reject) => {
+    if (error) {
+      reject(error);
+    } else {
+      resolve(result);
     }
-});
+  })
+})
