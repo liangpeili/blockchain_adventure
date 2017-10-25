@@ -20,23 +20,28 @@ contract mortal {
   }
 }
 
-contract MyContract is mortal {
-  uint myVariable;
+contract SimpleWallet is mortal {
 
-  function MyContract() payable {
-    myVariable = 5;
+  mapping(address => Permission) myAddressMapping; 
+
+  struct Permission {
+    bool isAllowed;
+    uint maxTransferAmount;
   }
 
-  function setMyVariable(uint myNewVariable) onlyowner {
-    myVariable = myNewVariable;
+  function addAddressToSendersList(address permitted, uint maxTransferAmount) onlyowner {
+    myAddressMapping[permitted] = Permission(true, maxTransferAmount);
   }
 
-  function getMyVariable() constant returns(uint) {
-    return myVariable;
-  }
-
-  function getMyContractBalance() constant returns(uint) {
-    return this.balance;
+  function sendFunds(address receiver, uint amountInWei) {
+    if(myAddressMapping[msg.sender].isAllowed) {
+      if(myAddressMapping[msg.sender].maxTransferAmount <= amountInWei) {
+        bool isTheAmountReallySent = receiver.send(amountInWei);
+        if(!isTheAmountReallySent) {
+          revert();
+        }
+      }
+    }
   }
 
   function () payable {
